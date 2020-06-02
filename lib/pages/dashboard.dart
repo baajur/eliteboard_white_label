@@ -315,6 +315,13 @@ class Dashboard extends StatelessWidget {
                   menuName: "Chapters",
                   onTap: (){Get.toNamed('/quizChapters');},
                 ),
+                DrawerItemTile(
+                  icon: Icons.class_,
+                  menuName: "Live Class",
+                  onTap: (){
+                      Get.toNamed('/livelecturelist');
+                    },
+                ),
                 drawerDevider,
                 DrawerItemTile(
                   icon: Icons.credit_card,

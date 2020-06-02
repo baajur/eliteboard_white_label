@@ -1,29 +1,24 @@
+import 'package:eliteboard/controllers/classroom_live_list_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:eliteboard/controllers/news_and_updates_controller.dart';
-import 'package:eliteboard/utilities/constants.dart';
-import 'package:get/get.dart';
-import 'package:eliteboard/widgets/quiz_widgets.dart';
+import 'package:flutter/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:get/get.dart';
+import 'package:eliteboard/utilities/constants.dart';
+import 'package:eliteboard/widgets/live_lecture_widgets.dart';
 
-class NewsAndUpdates extends StatelessWidget{
+class ClassroomLiveLectureList extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("News & Updates"),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-          ),
-          onPressed: ()=>Navigator.pop(context),
-        ),
+        title: Text('Live Lectures'),
       ),
-      body: Container(
-        decoration: BoxDecoration(color: Colors.teal[50]),
-        child: GetBuilder<NewsUpdatesController>(
-          init: NewsUpdatesController(),
-          initState:(newslist){NewsUpdatesController.to.onLoading();},
-          builder:(newslist)=> SmartRefresher(
+      body: GetBuilder(
+        init: ClassroomLiveLectureListController(),
+        initState: (_){ClassroomLiveLectureListController.to.onLoading();},
+        builder: (_){
+          return SmartRefresher(
             enablePullDown: true,
             enablePullUp: true,
             header: WaterDropHeader(),
@@ -53,17 +48,18 @@ class NewsAndUpdates extends StatelessWidget{
                 );
               },
             ),
-            controller: newslist.refreshController,
-            onRefresh: newslist.onRefresh,
-            onLoading: newslist.onLoading,
-            child: _buildChild(newslist),
-          ),
-        ),
-      ));
+            controller: _.refreshController,
+            onRefresh: _.onRefresh,
+            onLoading: _.onLoading,
+            child: _buildChild(_),
+          );
+        },
+      ),
+    );
   }
 
-  Widget _buildChild(newslist) {
-    if (newslist.newsAndUpdatesResponse == null) {
+  Widget _buildChild(_) {
+    if (_.lectureList == null) {
       return Container(
         child: Center(
           child: CircularProgressIndicator (
@@ -74,10 +70,12 @@ class NewsAndUpdates extends StatelessWidget{
     }
     return ListView.builder(
       itemBuilder: (c, i){
-        return NewsAndDetailsCard(newslist.items[i]);
+        return LiveLectureListCard(lecture: _.items[i],onTap:(){
+          Get.toNamed('/liveclass',arguments:_.items[i]);
+        },);
       },
       //          itemExtent: 230,
-      itemCount: newslist.items.length,
+      itemCount: _.items.length,
     );
   }
 }

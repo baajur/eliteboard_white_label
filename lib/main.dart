@@ -1,4 +1,5 @@
 import 'package:eliteboard/controllers/account_details_controller.dart';
+import 'package:eliteboard/controllers/classroom_live_list_controller.dart';
 import 'package:eliteboard/controllers/edit_user_contact_controller.dart';
 import 'package:eliteboard/controllers/edit_user_info_controller.dart';
 import 'package:eliteboard/controllers/main_controller.dart';
@@ -12,6 +13,8 @@ import 'package:eliteboard/repositorys/local.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:connectivity/connectivity.dart';
 import 'dart:async';
+
+import 'pages/pages.dart';
 
 void main() async {
   String initalRoute;
@@ -74,7 +77,9 @@ class MyApp extends StatelessWidget {
             '/edituserbank':GetRoute(page: EditUserBankInfo()),
             '/quizapply':GetRoute(page: ConfirmQuizApplication()),
             '/quizvdis':GetRoute(page: YoutubePlayerDemoApp()),
-            '/quizChapters':GetRoute(page: QuizChapters())
+            '/quizChapters':GetRoute(page: QuizChapters()),
+            '/liveclass':GetRoute(page: ClassroomLive()),
+            'livelecturelist':GetRoute(page: ClassroomLiveLectureList()),
           },
           navigatorObservers: [
             GetObserver(MiddleWare.observer),

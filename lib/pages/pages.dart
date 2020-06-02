@@ -15,6 +15,7 @@ export './edit_user_contact_page.dart';
 export './edit_user_bank_page.dart';
 export './edit_user_contact_page.dart';
 export './quiz_apply_confirmation_page.dart';
-
 export './quiz_chapters_page.dart';
 export './vids.dart';
+export './classroom_live.dart';
+export './classroom_live_list.dart';
